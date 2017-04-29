@@ -76,11 +76,8 @@ public class Bloque extends JPanel{
 			g.fillRect(19, 43,50, 3);
 			g.fillRect(43, 19,3,50);
 			g.fillOval(33, 33, 21, 21);
-
+//hehe
 		}
 	}
-
-
-
 }
 
