@@ -70,6 +70,9 @@ public class Tablero extends JPanel{
 							System.out.println("X: "+((Bloque) e.getSource()).getXB());
 							System.out.println("Y: "+((Bloque) e.getSource()).getYB());
 							boolean seMueve = mover((Bloque)e.getSource());
+							if(seMueve){
+									
+							}
 							System.out.println(""+seMueve);
 							
 							
