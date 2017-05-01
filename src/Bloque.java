@@ -22,6 +22,10 @@ public class Bloque extends JPanel{
 		this.color=Color.YELLOW;
 		repaint();
 	}
+	public void unsetColor(){
+		this.color=Color.BLACK;
+		repaint();
+	}
 	public int getFicha(){
 		return this.ficha;
 	}	

@@ -62,29 +62,45 @@ public class Tablero extends JPanel{
 					
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						
 						if(((Bloque) e.getSource()).getFicha()>=turno && turno==1){
-							turno=-1;
+							System.out.println("Ficha: "+((Bloque) e.getSource()).getFicha());
+							System.out.println("X: "+((Bloque) e.getSource()).getXB());
+							System.out.println("Y: "+((Bloque) e.getSource()).getYB());
+							int[] posMov = moverseBlue((Bloque) e.getSource());
+							while(posMov[0]==1 || posMov[1]==1){
+								
+							}
+							System.out.println(""+posMov[0]);
+							System.out.println(""+posMov[1]);
 							panel.setColor2();
-							((Bloque) e.getSource()).setFicha(2);
-							System.out.println(turno);
-							moverse((Bloque)e.getSource());
+							//((Bloque) e.getSource()).setFicha(2);
+							//System.out.println(turno);
+							moverseBlue((Bloque) e.getSource());
 							int[] temp=checarBloque((Bloque) e.getSource());
 							System.out.println("UpLeft"+temp[0]);
 							System.out.println("UpRight"+temp[1]);
 							System.out.println("DownLeft"+temp[2]);
 							System.out.println("DownRight"+temp[3]);
+							turno=-1;
 						}
 						else if(((Bloque) e.getSource()).getFicha()<=turno && turno==-1){
-							turno=1;
+							
+							System.out.println("Ficha: "+((Bloque) e.getSource()).getFicha());
+							System.out.println("X: "+((Bloque) e.getSource()).getXB());
+							System.out.println("Y: "+((Bloque) e.getSource()).getYB());
+							//int[] posMov = moverseRed((Bloque) e.getSource());
+							//System.out.println(""+posMov[0]);
+							//System.out.println(""+posMov[1]);
 							panel.setColor1();
-							((Bloque) e.getSource()).setFicha(-2);
+							//((Bloque) e.getSource()).setFicha(-2);
+							
 							System.out.println(turno);
 							int[] temp=checarBloque((Bloque) e.getSource());
 							System.out.println("UpLeft"+temp[0]);
 							System.out.println("UpRight"+temp[1]);
 							System.out.println("DownLeft"+temp[2]);
 							System.out.println("DownRight"+temp[3]);
+							turno=1;
 						}
 					}
 				});
@@ -94,7 +110,6 @@ public class Tablero extends JPanel{
 				else{
 					t.setBounds(x*87,y*174,87,87);
 				}
-				
 			}
 		}
 	}
@@ -198,29 +213,63 @@ public class Tablero extends JPanel{
                 }
 		return temp;
 	}
-	public void moverse(Bloque bloque){
+	public int[] moverseBlue(Bloque bloque){
+		int[] posMov = new int[2];
+		int[] temp = checarBloque(bloque);
+		int x = bloque.getXB();
+		int y = bloque.getYB();
+		int UL = temp[0];
+		int UR = temp[1];
+		if((x%2)==0 && UL != 3){
+			if(UL==0){
+				tablero[x-1][y].setColor();
+				posMov[0] = 1;
+			}
+			if(UR==0){
+				tablero[x+1][y].setColor();
+				posMov[1]=1;
+			}
+		}
+		else if((x%2)==1 && UR != 3){
+			if(UL==0){
+				tablero[x-1][y-1].setColor();
+				posMov[0]=1;
+			}
+			if(UR==0){
+				tablero[x+1][y-1].setColor();
+				posMov[1]=1;
+			}
+		}
+		else if(x==0){
+			tablero[x+1][y].setColor();
+			posMov[0]=1;
+		}
+		else{
+			tablero[x-1][y+1].setColor();
+			posMov[1]=1;
+		}
+		return posMov;
+	}
+	public void moverseRed(Bloque bloque){
 		int[] temp = checarBloque(bloque);
 		int ficha = bloque.getFicha();
 		int x = bloque.getXB();
 		int y = bloque.getYB();
-		if(ficha==1){ //y incrementa
-			int UL = temp[0];
-			int UR = temp[1];
-			if((x%2)==0 && x!=0){
-				if(UL==0 && UR == 0){
-					tablero[x+1][y].setColor();
-					tablero[x-1][y].setColor();
-					System.out.println("jalo");
-				}
-				else if(UL == 0 && UR != 0){
-					tablero[x-1][y].setColor();
-					System.out.println("jalo");
-				}
-				else if(UR == 0 && UL != 0){
-					tablero[x+1][y].setColor();
-					System.out.println("jalo");
-				}
-			}
+		int DL = temp[2];
+		int DR = temp[3];
+		if((x%2)==0 && DL != 3){
+			tablero[x-1][y+1].setColor();
+			tablero[x+1][y+1].setColor();
+		}
+		else if((x%2)==1 && DR != 3){
+			tablero[x-1][y].setColor();
+			tablero[x+1][y].setColor();
+		}
+		else if(x==0){
+			tablero[x+1][y+1].setColor();
+		}
+		else{
+			tablero[x-1][y].setColor();
 		}
 		
 	}
