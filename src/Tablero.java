@@ -100,83 +100,100 @@ public class Tablero extends JPanel{
 		int x = bloque.getXB();
 		int y = bloque.getYB();
 		int[] temp = new int[4];
-		if(x>0 && x<7){
-			//checa todos los de en medio
-			if(y>0 && y<3){
-				if((x%2)==1){
-					temp[0]=tablero[x-1][y-1].getFicha();
-					temp[1]=tablero[x+1][y-1].getFicha();
-					temp[2]=tablero[x-1][y].getFicha();
-					temp[3]=tablero[x+1][y].getFicha();
-				}
-				else{
-					temp[0]=tablero[x-1][y].getFicha();
-					temp[1]=tablero[x+1][y].getFicha();
-					temp[2]=tablero[x-1][y+1].getFicha();
-					temp[3]=tablero[x+1][y+1].getFicha();
-				}
-			}
-		}
+		if((x>0 && x<7)&&(y>0 && y<3)){
+                    if((x%2)==1){
+                        temp[0]=tablero[x-1][y-1].getFicha();
+			temp[1]=tablero[x+1][y-1].getFicha();
+			temp[2]=tablero[x-1][y].getFicha();
+			temp[3]=tablero[x+1][y].getFicha();
+                    }
+                    if((x%2)==0){
+                        temp[0]=tablero[x-1][y].getFicha();
+			temp[1]=tablero[x+1][y].getFicha();
+			temp[2]=tablero[x-1][y+1].getFicha();
+			temp[3]=tablero[x+1][y+1].getFicha();
+                    }
+                }    
 		//checa si la fila es la fila 0
-		else if(y==0){
-			if((x%2)==0 && x!=0){
-				temp[0]=tablero[x-1][y].getFicha();
+                else if(y==0){
+			if((x%2)==1){
+                            if(x!=7){
+				temp[0]=3;
+				temp[1]=3;
+				temp[2]=tablero[x-1][y].getFicha();
+				temp[3]=tablero[x+1][y].getFicha();
+                            }
+                            else{
+                                temp[0]=3;
+				temp[1]=3;
+				temp[2]=tablero[x-1][y].getFicha();
+				temp[3]=3;
+                            }
+			}
+                        else{
+                            if(x!=0){
+                               temp[0]=tablero[x-1][y].getFicha();
 				temp[1]=tablero[x+1][y].getFicha();
 				temp[2]=tablero[x-1][y+1].getFicha();
 				temp[3]=tablero[x+1][y+1].getFicha();
-			}
-			else if(x==0){
+                            }
+                            else{
+                                temp[0]=3;
 				temp[1]=tablero[x+1][y].getFicha();
+				temp[2]=3;
 				temp[3]=tablero[x+1][y+1].getFicha();
-			}
-			else if((x%2)==1 && x!=7){
-				temp[2]=tablero[x-1][y].getFicha();
-				temp[3]=tablero[x+1][y].getFicha();
-			}
-			else{
-				temp[2]=tablero[x-1][y].getFicha();
-			}
+                            }    
+                        }
+			
 		}
-		else if(y>0 && y<3){
-			if((x%2)==0 && x!=0){
-				temp[0]=tablero[x-1][y].getFicha();
-				temp[1]=tablero[x+1][y].getFicha();
-				temp[2]=tablero[x-1][y+1].getFicha();
-				temp[3]=tablero[x+1][y+1].getFicha();
-			}
-			else if(x==0){
-				temp[1]=tablero[x+1][y].getFicha();
-				temp[3]=tablero[x+1][y+1].getFicha();
-			}
-			else if((x%2)==1 && x!=7){
-				temp[2]=tablero[x-1][y].getFicha();
-				temp[3]=tablero[x+1][y].getFicha();
-			}
-			else{
-				temp[0]=tablero[x-1][y-1].getFicha();
-				temp[2]=tablero[x-1][y].getFicha();
-			}
-		}
-		//checa si la fila es la fila 3
 		else if(y==3){
-			if((x%2)==1 && x!=7){
-				temp[0]=tablero[x-1][y-1].getFicha();
+			if((x%2)==0){
+                            if(x!=0){
+				temp[0]=tablero[x-1][y].getFicha();
+				temp[1]=tablero[x+1][y].getFicha();
+				temp[2]=3;
+				temp[3]=3;
+                            }
+                            else{
+                                temp[0]=3;
+				temp[1]=tablero[x+1][y].getFicha();
+				temp[2]=3;
+				temp[3]=3;
+                            }
+			}
+                        else{
+                            if(x!=7){
+                                temp[0]=tablero[x-1][y-1].getFicha();
 				temp[1]=tablero[x+1][y-1].getFicha();
 				temp[2]=tablero[x-1][y].getFicha();
 				temp[3]=tablero[x+1][y].getFicha();
-			}
-			else if(x==7){
-				temp[0]=tablero[x-1][y-1].getFicha();
+                            }
+                            else{
+                                temp[0]=tablero[x-1][y-1].getFicha();
+				temp[1]=3;
 				temp[2]=tablero[x-1][y].getFicha();
-			}
-			else if((x%2)==0 && x!=0){
-				temp[0]= tablero[x-1][y].getFicha();
-				temp[1]= tablero[x-1][y].getFicha();
-			}
-			else if(x==0){
-				temp[1]=tablero[x+1][y].getFicha();
-			}
+				temp[3]=3;
+                            }
+                        }
 		}
+                
+		//checa si la fila es la fila 3
+		else if(x==0){
+                    temp[0]=3;
+                    temp[1]=tablero[x+1][y].getFicha();
+                    temp[2]=3;
+                    temp[3]=tablero[x+1][y+1].getFicha();	
+		}
+                else if(x==7){
+                    temp[0]=tablero[x-1][y+1].getFicha();
+                    temp[1]=3;
+                    temp[2]=tablero[x-1][y].getFicha();
+                    temp[3]=3;
+                }
+                else{
+                    System.out.println("Error al checar");
+                    return null;
+                }
 		return temp;
 	}
 	public void moverse(Bloque bloque){
