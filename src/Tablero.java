@@ -62,11 +62,13 @@ public class Tablero extends JPanel{
 					
 					@Override
 					public void mouseClicked(MouseEvent e) {
+						
 						if(((Bloque) e.getSource()).getFicha()>=turno && turno==1){
 							turno=-1;
 							panel.setColor2();
 							((Bloque) e.getSource()).setFicha(2);
 							System.out.println(turno);
+							moverse((Bloque)e.getSource());
 							int[] temp=checarBloque((Bloque) e.getSource());
 							System.out.println("UpLeft"+temp[0]);
 							System.out.println("UpRight"+temp[1]);
@@ -197,7 +199,30 @@ public class Tablero extends JPanel{
 		return temp;
 	}
 	public void moverse(Bloque bloque){
-		checarBloque(bloque);
+		int[] temp = checarBloque(bloque);
+		int ficha = bloque.getFicha();
+		int x = bloque.getXB();
+		int y = bloque.getYB();
+		if(ficha==1){ //y incrementa
+			int UL = temp[0];
+			int UR = temp[1];
+			if((x%2)==0 && x!=0){
+				if(UL==0 && UR == 0){
+					tablero[x+1][y].setColor();
+					tablero[x-1][y].setColor();
+					System.out.println("jalo");
+				}
+				else if(UL == 0 && UR != 0){
+					tablero[x-1][y].setColor();
+					System.out.println("jalo");
+				}
+				else if(UR == 0 && UL != 0){
+					tablero[x+1][y].setColor();
+					System.out.println("jalo");
+				}
+			}
+		}
+		
 	}
 	public void paintComponent(Graphics g){
 		g.setColor(Color.WHITE);
